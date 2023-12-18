@@ -1,41 +1,66 @@
-function calculateWater() {
-  const blockHeightInput = document.getElementById('blockHeight').value;
-  const blockHeights = blockHeightInput.split(',').map(Number);
+function calculateWaterUnits(heights) {
+  let totalUnits = 0;
+  const n = heights.length;
 
-  const { totalWater, svgString } = calculateWaterUnits(blockHeights);
+  for (let i = 1; i < n - 1; i++) {
+    let leftMax = Math.max(...heights.slice(0, i));
+    let rightMax = Math.max(...heights.slice(i + 1));
+    let minHeight = Math.min(leftMax, rightMax);
 
-  document.getElementById('result').classList.remove('hidden');
-  document.getElementById('svgContainer').classList.remove('hidden');
+    if (minHeight > heights[i]) {
+      totalUnits += minHeight - heights[i];
+    }
+  }
 
-  const waterResult = document.getElementById('waterResult');
-  waterResult.innerHTML = `Total Water Units: ${totalWater}`;
-
-  const svgContainer = document.getElementById('svgContainer');
-  svgContainer.innerHTML = svgString;
+  return totalUnits;
 }
 
-function calculateWaterUnits(heights) {
-  let totalWater = 0;
+function renderWaterTank() {
+  const userInput = document.getElementById('heightInput').value;
+  const input = userInput.split(',').map(value => parseInt(value, 10));
 
-  // Calculate total water and create SVG string
-  let svgString = '<svg height="100" width="500" xmlns="http://www.w3.org/2000/svg">';
+  const waterTank = document.getElementById('waterTank');
+  waterTank.innerHTML = '';
 
-  for (let i = 0; i < heights.length; i++) {
-      svgString += `<rect x="${i * 50}" y="${100 - heights[i]}" width="50" height="${heights[i]}" fill="gray" stroke="black" stroke-width="1"/>`;
+  // Create x-axis
+  const xAxis = document.createElement('div');
+  xAxis.className = 'axis';
+  xAxis.id = 'xAxisLabel';
+  xAxis.innerText = 'Block Index';
+  waterTank.appendChild(xAxis);
+
+  // Create y-axis
+  const yAxis = document.createElement('div');
+  yAxis.className = 'axis';
+  yAxis.id = 'yAxisLabel';
+  yAxis.innerText = 'Block Height';
+  waterTank.appendChild(yAxis);
+
+  for (let i = 0; i < input.length; i++) {
+    const block = document.createElement('div');
+    block.className = 'block';
+    block.style.height = `${input[i] * 30}px`;
+    waterTank.appendChild(block);
   }
 
-  for (let i = 1; i < heights.length - 1; i++) {
-      const leftMax = Math.max(...heights.slice(0, i));
-      const rightMax = Math.max(...heights.slice(i + 1));
-      const minHeight = Math.min(leftMax, rightMax);
+  const water = document.createElement('div');
+  const waterUnits = calculateWaterUnits(input);
+  water.className = 'water';
+  water.style.width = `${input.length * 32}px`;
+  
+  // Adjust width to cover all blocks
+  water.style.height = `${waterUnits}px`;
+  water.style.bottom = '0';
+  water.style.position = 'absolute';
+  waterTank.appendChild(water);
 
-      if (minHeight > heights[i]) {
-          totalWater += minHeight - heights[i];
-          svgString += `<rect x="${i * 50}" y="${100 - minHeight}" width="50" height="${minHeight - heights[i]}" fill="blue" opacity="0.5" stroke="black" stroke-width="1"/>`;
-      }
-  }
+  // Label for total water units
+  const waterLabel = document.createElement('div');
+  waterLabel.className = 'axis';
+  waterLabel.id = 'waterLabel';
+  waterLabel.innerText = `Total Water Units: ${waterUnits}`;
+  waterTank.appendChild(waterLabel);
 
-  svgString += '</svg>';
-
-  return { totalWater, svgString };
+  // Hide input field and button
+  document.getElementById('inputContainer').style.display = 'none';
 }

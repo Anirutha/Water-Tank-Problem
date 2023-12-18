@@ -1,44 +1,50 @@
 body {
-  font-family: Arial, sans-serif;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.container {
-  text-align: center;
+#waterTank {
+  border: 1px solid #333;
+  position: relative;
+  margin-top: 30px;
 }
 
-input {
-  padding: 8px;
-  margin-bottom: 10px;
+.block {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #3498db;
+  margin: 0 2px;
 }
 
-button {
-  padding: 10px 20px;
-  cursor: pointer;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.water {
+  background-color: #2ecc71;
+  position: absolute;
 }
 
-button:hover {
-  background-color: #45a049;
+.axis {
+  position: absolute;
+  color: #333;
 }
 
-#result {
-  margin-top: 20px;
-  font-weight: bold;
+#xAxisLabel {
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-#svgContainer {
-  margin-top: 20px;
+#yAxisLabel {
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%) rotate(-90deg);
 }
 
-.hidden {
-  display: none;
+#waterLabel {
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Water Storage Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Water Storage Calculator</h1>
-        <label for="blockHeight">Enter Block Heights (comma-separated): </label>
-        <input type="text" id="blockHeight" placeholder="e.g., 3,0,2,4,0,1">
-        <button onclick="calculateWater()">Calculate Water</button>
-        <div id="result" class="hidden">
-            <p id="waterResult"></p>
-        </div>
-        <div id="svgContainer" class="hidden"></div>
-    </div>
-    <script src="script.js"></script>
+  <div id="inputContainer">
+    <label for="heightInput">Enter comma-separated values for the water tank heights:</label>
+    <input type="text" id="heightInput" />
+    <button onclick="renderWaterTank()">Render Water Tank</button>
+  </div>
+  <div id="waterTank"></div>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
