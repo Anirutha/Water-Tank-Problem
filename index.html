@@ -2,25 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Tank</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Water Storage Calculator</title>
 </head>
 <body>
-    <div class="header"><h1>Water Tank Problem</h1></div>
-    <div class="inputarea">
-        <input type="text" id="inputArr" name="inputArr" placeholder="e.g. 0,4,0,0,0,6,0,6,4,0">
-        <button class="button" id="array-btn" onclick="fetchArr()">Compute Water</button>
+    <div class="container">
+        <h1>Water Storage Calculator</h1>
+        <label for="blockHeight">Enter Block Heights (comma-separated): </label>
+        <input type="text" id="blockHeight" placeholder="e.g., 3,0,2,4,0,1">
+        <button onclick="calculateWater()">Calculate Water</button>
+        <div id="result" class="hidden">
+            <p id="waterResult"></p>
+        </div>
+        <div id="svgContainer" class="hidden"></div>
     </div>
-    <div class="waterAndWallContainer"><h2>Input</h2>
-        <div id="chart-container"></div>
-    </div>
-    <div class="onlyWaterContainer"><h2>Output</h2>
-        <h4><span id="waterunit"></span></h4>
-        <div id="chart-container1"></div>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
